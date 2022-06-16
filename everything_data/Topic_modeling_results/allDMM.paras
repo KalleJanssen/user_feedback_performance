@@ -1,0 +1,11 @@
+-model	DMM
+-corpus	../topic_modeling/STTM-master.nosync/dataset/pre_topic_modeling_all.txt
+-ntopics	15
+-alpha	0.1
+-beta	0.01
+-niters	1000
+-twords	8
+-name	allDMM
+-initiation time	5.0
+-one iteration time	1.868
+-total time	1873.0

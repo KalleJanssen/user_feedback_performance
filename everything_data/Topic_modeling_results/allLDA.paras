@@ -1,0 +1,11 @@
+-model	LDA
+-corpus	../topic_modeling/STTM-master.nosync/dataset/pre_topic_modeling_all.txt
+-ntopics	15
+-alpha	0.1
+-beta	0.01
+-niters	1000
+-twords	8
+-name	allLDA
+-initiation time	6.0
+-one iteration time	1.766
+-total time	1772.0

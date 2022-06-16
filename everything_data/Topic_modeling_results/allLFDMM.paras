@@ -1,0 +1,14 @@
+-model	LFDMM
+-corpus	../topic_modeling/STTM-master.nosync/dataset/pre_topic_modeling_all.txt
+-vectors	../topic_modeling/STTM-master.nosync/glove/glove.6B.50d.txt
+-ntopics	15
+-alpha	0.1
+-beta	0.01
+-lambda	0.6
+-initers	1000
+-niters	1000
+-twords	8
+-name	allLFDMM
+-initiation time	2744.0
+-one iteration time	5.071
+-total time	7815.0

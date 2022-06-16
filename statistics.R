@@ -17,7 +17,6 @@ load_data <- function() {
   times = read.table("alternatives/Simba_Energy/times.txt", header = TRUE, sep = ",", dec = ".", fill =TRUE)
   energy = read.table("alternatives/Simba_Energy/default_energy.txt", header = TRUE, sep = ",", dec = ".", fill =TRUE)
   accuracy = read.table("alternatives/Simba_Energy/accuracy.txt", header = TRUE, sep = ",", dec = ".", fill =TRUE)
-  # prec_rec_f1 = read.table("alternatives/prec_rec_f1.txt", header = TRUE, sep = ",", dec = ".", fill =TRUE)
   
   energy = energy[!is.na(energy$watt), ]
   times$start_time = as.POSIXlt(times$start_time,format="%d/%m/%Y %H:%M:%OS",tz=Sys.timezone())

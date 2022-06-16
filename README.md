@@ -3,42 +3,56 @@
 Test the performance and energy consumption of text classification, topic modeling, sentiment analysis, and similarity measurements.
 
 ## Installation
-### External:
-* SentiStrength
-  * Location: `ALERTme_approach/sentistrength/`
-    * [SentiStrength.jar](http://sentistrength.wlv.ac.uk/jkpop/)
-    * [SentiStrength_Data](http://sentistrength.wlv.ac.uk/jkpop/)
-* STTM: A Library of Short Text Topic Modeling
-  * Location:
-    * [STTM](https://github.com/qiang2100/STTM)
-  * Location: `STTM-master/`
-    * [enwiki-latest-pages-articles.xml.bz2](https://dumps.wikimedia.org/enwiki/latest/)
-    * [glove.6B.zip](https://nlp.stanford.edu/projects/glove/)
-* BERT
-  * Location: `current_approach/data`
-    * [bert_en_uncased_preprocess](https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3)
-    * [bert_en_uncased_L-12_H-768_A-12](https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/4)
-
-To compute topic coherence for topic modeling the previously downloaded Wikipedia dataset has to be transformed from html to text.
-```bash
-# This can take up to 10 hours depending on the hardware
-python2 STTM-master/process_wiki.py enwiki-latest-pages-articles.xml.bz2 wiki.en.text
-```
-### SQL
-Install [MySQL Workbench](https://www.mysql.com/products/workbench/) or equivalent and start a new schema.
-
-### RStudio
-Install [RStudio](https://www.rstudio.com) and the following libraries in R.
-```R
-Placeholder
-```
+### Requirements
+* R
+  * [RStudio](https://www.rstudio.com)
+  * Packages
+    * glue
+    * plyr
+    * pastecs
+    * ggplot2
+    * tidyverse
+    * gridExtra
+    * pracma
+    * hash
+* SQL
+  * [MySQL Workbench](https://www.mysql.com/products/workbench/)
+    * Replace passwords and databases in all files in `all_algorithms/` and `everything_data/`
+    * Create a new schema called
+* Python 3.8
+* Python 2.7
+* Java 8
+* Java 1.8
 
 ### Pip
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the following packages.
 
 ```bash
-pip install sentistrength
+# python2
+pip install requirements_2.txt
+
+# python3
+pip3 install requirements_3.txt
 ```
+
+### External algorithms:
+Download the following algorithms and place them in the corresponding locations
+* SentiStrength
+  * Location: `ALERTme_approach/sentistrength/`
+    * [SentiStrength.jar](http://sentistrength.wlv.ac.uk/jkpop/)
+    * [SentiStrength_Data](http://sentistrength.wlv.ac.uk/jkpop/)
+* STTM: A Library of Short Text Topic Modeling
+  * Location: `topic_modeling/`
+    * [STTM](https://github.com/qiang2100/STTM)
+  * Location: `topic_modeling/STTM-master/`
+    * [glove.6B.zip](https://nlp.stanford.edu/projects/glove/)
+* SIMBA
+  *Location: `all_algorithms/`
+    * [SIMBA](https://doi.org/10.1109/RE48521.2020.00017)
+* Senti4SD
+  * Location: `all_algorithms/`
+    * [Senti4SD](https://github.com/collab-uniba/Senti4SD)
+    * Location to the Senti4SD folder has to be edited in `all_algorithms/sentiment_senti4SD.py`
 
 ## Usage
 To compute topic coherence for topic modeling the previously downloaded Wikipedia dataset has to be transformed from html to text.

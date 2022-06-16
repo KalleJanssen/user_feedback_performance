@@ -1,0 +1,14 @@
+-model	GPUDMM
+-corpus	../topic_modeling/STTM-master.nosync/dataset/pre_topic_modeling_all.txt
+-ntopics	15
+-alpha	0.1
+-beta	0.01
+-threshold	0.1
+-weight	0.7
+-filterSize	20
+-niters	1000
+-twords	8
+-name	allGPUDMM
+-initiation time	1113.0
+-one iteration time	2.206
+-total time	3319.0
