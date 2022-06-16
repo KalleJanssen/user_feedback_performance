@@ -56,7 +56,9 @@ Download the following algorithms and place them in the corresponding locations
 
 ## Usage
 To prepare the data, each `.sql` file in `everything_data/labeled_data/` should be run in a previously created SQL schema. 
+
 Each algorithm can be run separately in the `all_algorithms` folder or all automatically by running `all_algorithms/random_run.py`. To run any of these algorithms, the passwords and databases of the SQL database should be changed in each algorithm file. Furthermore, for testing reasons, each algorithm is run n times. This can be changed if energy does not need to be measured. Energy can be measured by running `webserver_stress_DAE.py` in a separate terminal.
+
 Finally, results can be analyzed and visualized using the `statistics.R` file.
 
 ## License
