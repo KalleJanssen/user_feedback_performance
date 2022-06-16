@@ -1,5 +1,3 @@
-setwd("~/Desktop/Computer_Science/Master_Thesis/Kalle_MSc_Thesis")
-
 rm(list=ls())
 
 library(glue)
@@ -14,9 +12,9 @@ library(hash)
 
 # loads data from result files
 load_data <- function() {
-  times = read.table("alternatives/Simba_Energy/times.txt", header = TRUE, sep = ",", dec = ".", fill =TRUE)
-  energy = read.table("alternatives/Simba_Energy/default_energy.txt", header = TRUE, sep = ",", dec = ".", fill =TRUE)
-  accuracy = read.table("alternatives/Simba_Energy/accuracy.txt", header = TRUE, sep = ",", dec = ".", fill =TRUE)
+  times = read.table("collected_data/times.txt", header = TRUE, sep = ",", dec = ".", fill =TRUE)
+  energy = read.table("collected_data/default_energy.txt", header = TRUE, sep = ",", dec = ".", fill =TRUE)
+  accuracy = read.table("collected_data/accuracy.txt", header = TRUE, sep = ",", dec = ".", fill =TRUE)
   
   energy = energy[!is.na(energy$watt), ]
   times$start_time = as.POSIXlt(times$start_time,format="%d/%m/%Y %H:%M:%OS",tz=Sys.timezone())
@@ -44,12 +42,7 @@ calculate_joules <- function(method, times, energy, approach1) {
   l = 1:nrow(new_times)
   for (i in 1:nrow(new_times)) {
     new_energy = energy[energy$Datetime >= new_times$start_time[i] & energy$Datetime <= new_times$end_time[i], ]
-    power = average_watts(new_energy)
-    # Some algorithms are so fast that the energy can't be measured as the sampling rate is around 0.2 seconds
-    if (is.na(power) || power == 0) {
-      power = average_power * seconds[i]
-    }
-    l[i] = as.numeric(power)
+    l[i] = average_watts(new_energy)
   }
   return(l)
 }
@@ -64,7 +57,6 @@ times = all_data$times
 accuracy = all_data$accuracy
 
 dict = hash()
-# dict[["classification"]] = c(" bert", " forest", " LR", " multinomial", " sequential", " SVM")
 dict[["classification_three"]] = c(" bert", " forest", " LR", " multinomial", " sequential", " SVM")
 dict[["topic_modeling"]] = c(" BTM", " DMM", " GPUPDMM", " LDA", " LFDMM", " GPUDMM")
 dict[["similarity"]] = c(" bert", " jaccard", " MPNet", " WMD", " thefuzz", " simba")
@@ -74,8 +66,6 @@ df <- data.frame(method=character(),
                  joules=numeric(),
                  seconds=numeric(),
                  approach=character())
-
-average_power = mean(energy$watt)
 
 # creates a dataframe with: method, joules, seconds, and approach
 for (approach1 in keys(dict)) {
@@ -98,7 +88,7 @@ accuracy$accuracy <- as.numeric(accuracy$accuracy)
 df <- na.omit(df)
 
 df$kj = df$joules/1000
-# best to worst:
+
 #1bc2e0 Light blue
 #1b1ee0 Dark blue
 #e0e01b Yellow
@@ -170,10 +160,6 @@ for (approach1 in keys(dict)) {
   }
 }
 
-first_column <- c("value_1", "value_2", "value_1", "value_2", "value_1", "value_2", "value_1", "value_2", "value_3", "value_3", "value_3", "value_3", "value_1", "value_2", "value_3")
-second_column <- c(2, 5, 3, 8, 1, 7, 3, 9, 15, 17, 14, 15, 15, 3, 2)
-third_column <- 2 * second_column
-
 joule_classification = df[which(df$approach== "classification_three"), ]
 joule_classification = joule_classification[order(joule_classification$method),]$joules
 accuracy_classification = accuracy[which(accuracy$approach== "classification_three"), ]
@@ -243,8 +229,6 @@ kruskal.test(accuracy[which(accuracy$approach == "similarity"),]$accuracy ~ accu
 
 kruskal.test(accuracy[which(accuracy$approach == "sentiment"),]$MAE ~ accuracy[which(accuracy$approach == "sentiment"),]$method)
 kruskal.test(accuracy[which(accuracy$approach == "similarity"),]$MAE ~ accuracy[which(accuracy$approach == "similarity"),]$method)
-
-pairwise.wilcox.test(second_column, first_column, p.adjust.method = "BH")
 
 for (method in dict[["classification_three"]]) {
   print(method)
