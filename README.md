@@ -47,7 +47,7 @@ Download the following algorithms and place them in the corresponding locations
   * Location: `topic_modeling/STTM-master/`
     * [glove.6B.zip](https://nlp.stanford.edu/projects/glove/)
 * SIMBA
-  *Location: `all_algorithms/`
+  * Location: `all_algorithms/`
     * [SIMBA](https://doi.org/10.1109/RE48521.2020.00017)
 * Senti4SD
   * Location: `all_algorithms/`
@@ -55,10 +55,9 @@ Download the following algorithms and place them in the corresponding locations
     * Location to the Senti4SD folder has to be edited in `all_algorithms/sentiment_senti4SD.py`
 
 ## Usage
-To compute topic coherence for topic modeling the previously downloaded Wikipedia dataset has to be transformed from html to text.
-```bash
-placeholder
-```
+To prepare the data, each `.sql` file in `everything_data/labeled_data/` should be run in a previously created SQL schema. 
+Each algorithm can be run separately in the `all_algorithms` folder or all automatically by running `all_algorithms/random_run.py`. To run any of these algorithms, the passwords and databases of the SQL database should be changed in each algorithm file. Furthermore, for testing reasons, each algorithm is run n times. This can be changed if energy does not need to be measured. Energy can be measured by running `webserver_stress_DAE.py` in a separate terminal.
+Finally, results can be analyzed and visualized using the `statistics.R` file.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
