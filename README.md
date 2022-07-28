@@ -18,7 +18,9 @@ Test the performance and energy consumption of text classification, topic modeli
 * SQL
   * [MySQL Workbench](https://www.mysql.com/products/workbench/)
     * Replace passwords and databases in all files in `all_algorithms/` and `everything_data/`
-    * Create a new schema called
+    * Create a new schema with the same name as the updated databse
+    * Run all .sql files in `everything_data/labeled_data`
+    * Run `everything_data/labeled_data/run.sh`
 * Python 3.8
 * Python 2.7
 * Java 8
@@ -38,7 +40,7 @@ pip3 install requirements_3.txt
 ### External algorithms:
 Download the following algorithms and place them in the corresponding locations
 * SentiStrength
-  * Location: `ALERTme_approach/sentistrength/`
+  * Location: `all_algorithms/sentistrength/`
     * [SentiStrength.jar](http://sentistrength.wlv.ac.uk/jkpop/)
     * [SentiStrength_Data](http://sentistrength.wlv.ac.uk/jkpop/)
 * STTM: A Library of Short Text Topic Modeling
