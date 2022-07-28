@@ -53,7 +53,10 @@ Download the following algorithms and place them in the corresponding locations
   * Location: `all_algorithms/`
     * [Senti4SD](https://github.com/collab-uniba/Senti4SD)
     * Location to the Senti4SD folder has to be edited in `all_algorithms/sentiment_senti4SD.py`
-
+* TopicModel4J
+  * Location: Java folder
+    * [TOpicModel4J](https://github.com/soberqian/TopicModel4J)
+    * Replace the location on line 15 in `all_algorithms/topic_modeling_BTM.py`
 ## Usage
 To prepare the data, each `.sql` file in `everything_data/labeled_data/` should be run in a previously created SQL schema. 
 
