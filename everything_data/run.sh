@@ -9,6 +9,3 @@ python3 create_sentiment_data.py
 
 echo "Creating similarity data"
 python3 create_similarity_data.py
-
-echo "Creating similarity data ascii"
-python3 create_similarity_data_ascii.py
