@@ -38,11 +38,16 @@ except mysql.connector.Error as err:
 DBcursor = database.cursor()
 
 def round_similarity(similarity):
-    if similarity <= 0.5:
+    if similarity <= 0.2:
         return 0
-    elif similarity > 0.5:
+    elif similarity <= 0.4:
         return 1
-
+    elif similarity <= 0.6:
+        return 2
+    elif similarity <= 0.8:
+        return 3
+    elif similarity <= 1:
+        return 4
 
 df = pd.read_sql("SELECT * FROM combined_similarity_english", database)
 
@@ -55,12 +60,12 @@ sentences.extend(list(df['preprocessed_text2']))
 model = SentenceTransformer('bert-base-nli-mean-tokens')
 embeddings = model.encode(sentences)
 
-for i in range(35):
+for i in range(1):
     predicted_list = []
     correct_list = []
     for index, row in df.iterrows():
         predicted_list.append(1 - spatial.distance.cosine(embeddings[index], embeddings[index+length]))
-        correct_list.append(row[6]/4)
+        correct_list.append(row[6])
 
 end = datetime.now().strftime("%d/%m/%Y %H:%M:%S.%f")
 file.write("similarity, bert, " + start[:-3] + ", " + end[:-3] + "\n")
@@ -69,15 +74,16 @@ correct = 0
 incorrect = 0
 MAE = 0
 round_predicted = [round_similarity(i) for i in predicted_list]
-round_correct = [round_similarity(i) for i in correct_list]
+print("Correct: {}".format(correct_list))
+print("predicted BERT: {}".format(round_predicted))
 for i in range(len(predicted_list)):
-    if round_predicted[i] == round_correct[i]:
+    if round_predicted[i] == correct_list[i]:
         correct += 1
     else:
         incorrect += 1
-    MAE += abs(predicted_list[i] - correct_list[i])
+    MAE += abs(round_predicted[i] - correct_list[i])
 
-(precision, recall, F1, ignore) = precision_recall_fscore_support(round_correct, round_predicted, average='macro')
+(precision, recall, F1, ignore) = precision_recall_fscore_support(correct_list, round_predicted, average='macro')
 
 # write accuracy to file
 filename = "accuracy.txt"

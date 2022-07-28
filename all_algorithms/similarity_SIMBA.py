@@ -30,25 +30,19 @@ except mysql.connector.Error as err:
 
 DBcursor = database.cursor()
 
-def round_similarity(similarity):
-    if similarity <= 0.5:
-        return 0
-    elif similarity > 0.5:
-        return 1
-
-df = pd.read_sql("SELECT * FROM combined_similarity_english_ascii", database)
+df = pd.read_sql("SELECT * FROM combined_similarity_english", database)
 # df = pd.read_sql("SELECT * FROM ss_all_final_en_reconciled", database)
 
 start = datetime.now().strftime("%d/%m/%Y %H:%M:%S.%f")
 import time
-for i in xrange(35):
+for i in xrange(1):
     print(i)
     accuracy = 0.0
     predicted_list = []
     correct_list = []
     for index, row in df.iterrows():
-        predicted_list.append(getAlignScore(row[1][:400], row[4][:400])/4)
-        correct_list.append(row[6]/4)
+        predicted_list.append(getAlignScore(row[1][:400], row[4][:400]))
+        correct_list.append(row[6])
 
 
 end = datetime.now().strftime("%d/%m/%Y %H:%M:%S.%f")
@@ -57,16 +51,16 @@ file.write("similarity, simba, " + start[:-3] + ", " + end[:-3] + "\n")
 correct = 0
 incorrect = 0
 MAE = 0
-round_predicted = [round_similarity(i) for i in predicted_list]
-round_correct = [round_similarity(i) for i in correct_list]
+print("Correct: {}".format(correct_list))
+print("predicted SIMBA: {}".format(predicted_list))
 for i in xrange(len(predicted_list)):
-    if round_predicted[i] == round_correct[i]:
+    if predicted_list[i] == correct_list[i]:
         correct += 1
     else:
         incorrect += 1
     MAE += abs(predicted_list[i] - correct_list[i])
 
-(precision, recall, F1, ignore) = precision_recall_fscore_support(round_correct, round_predicted, average='macro')
+(precision, recall, F1, ignore) = precision_recall_fscore_support(correct_list, predicted_list, average='macro')
 
 # write accuracy to file
 filename = "accuracy.txt"
